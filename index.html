@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyAuth System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .auth-container {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+
+        .auth-box {
+            background: rgba(20, 20, 20, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+
+        .auth-logo {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .auth-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .auth-subtitle {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #b0b0b0;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .auth-switch a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .dashboard {
+            display: none;
+        }
+
+        .navbar {
+            background: rgba(15, 15, 15, 0.95);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .navbar-menu {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .tab-btn {
+            padding: 8px 16px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 6px;
+            color: #3b82f6;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            color: #ef4444;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .keys-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .key-item {
+            background: rgba(30, 30, 30, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-left: 3px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .key-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .key-code {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: #3b82f6;
+            cursor: pointer;
+        }
+
+        .key-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            padding: 6px 12px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 6px;
+            color: #ef4444;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-reset {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+        }
+
+        .key-info {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .badge-expired {
+            background: rgba(239, 68, 68, 0.15);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .badge-locked {
+            background: rgba(251, 191, 36, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .alert-box {
+            padding: 16px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 8px;
+        }
+
+        .alert-text {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div id="authContainer" class="auth-container">
+        <div class="auth-box">
+            <form id="loginForm">
+                <div class="auth-logo">🔐</div>
+                <h1 class="auth-title">KeyAuth</h1>
+                <p class="auth-subtitle">Sistema de Gerenciamento</p>
+
+                <div class="form-group">
+                    <label class="form-label">Usuário</label>
+                    <input type="text" class="form-input" id="loginUsername" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-input" id="loginPassword" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Entrar</button>
+
+                <div class="auth-switch">
+                    Não tem conta? <a href="#" onclick="showRegister(); return false;">Criar conta</a>
+                </div>
+            </form>
+
+            <form id="registerForm" style="display: none;">
+                <div class="auth-logo">✨</div>
+                <h1 class="auth-title">Criar Conta</h1>
+                <p class="auth-subtitle">Registre-se para começar</p>
+
+                <div class="form-group">
+                    <label class="form-label">Usuário</label>
+                    <input type="text" class="form-input" id="registerUsername" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="registerEmail" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Senha</label>
+                    <input type="password" class="form-input" id="registerPassword" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Criar Conta</button>
+
+                <div class="auth-switch">
+                    Já tem conta? <a href="#" onclick="showLogin(); return false;">Fazer login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="dashboard" class="dashboard">
+        <nav class="navbar">
+            <div class="navbar-brand">🔐 KeyAuth</div>
+            <div class="navbar-menu">
+                <button class="tab-btn active" onclick="showTab('services')">🧩 Serviços</button>
+                <span style="color: #888; font-size: 13px;" id="currentUser"></span>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div id="tabServices" class="tab-content active">
+                <div class="main-grid">
+                    <div class="card">
+                        <h2 class="card-title">➕ Criar Serviço</h2>
+                        <form id="serviceForm">
+                            <div class="form-group">
+                                <label class="form-label">Nome do Serviço</label>
+                                <input type="text" class="form-input" id="serviceName" placeholder="Ex: Natural Disaster" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Criar Serviço</button>
+                        </form>
+
+                        <h3 style="margin-top:20px;">🗂️ Meus Serviços</h3>
+                        <div id="servicesList" style="margin-top:10px;">
+                            <p style="text-align: center; color: #555; padding: 20px;">Nenhum serviço criado</p>
+                        </div>
+                    </div>
+
+                    <div class="card" id="servicePanel">
+                        <h2 class="card-title">📋 Painel do Serviço</h2>
+                        <div id="selectedServiceInfo" style="margin-bottom:16px; color:#888;">Selecione um serviço à esquerda</div>
+
+                        <div id="serviceControls" style="display:none;">
+                            <h3>➕ Gerar Key para este Serviço</h3>
+                            <form id="keyForm">
+                                <div class="form-group">
+                                    <label class="form-label">Nome da Key</label>
+                                    <input type="text" class="form-input" id="keyName" placeholder="Ex: Key Premium" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Duração</label>
+                                    <select class="form-select" id="durationType" required>
+                                        <option value="permanent">Permanente</option>
+                                        <option value="1">1 Dia</option>
+                                        <option value="7">1 Semana</option>
+                                        <option value="30">1 Mês</option>
+                                        <option value="90">3 Meses</option>
+                                        <option value="365">1 Ano</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Gerar Key</button>
+                            </form>
+
+                                    <h3 style="margin-top:20px;">📋 Keys deste Serviço</h3>
+                                    <div class="keys-list" id="keysList">
+                                        <p style="text-align: center; color: #555; padding: 40px;">Nenhuma key criada</p>
+                                    </div>
+
+                                    <h3 style="margin-top:20px;">📜 Script deste Serviço</h3>
+                                    <div class="form-group">
+                                        <label class="form-label">📜 Script Completo</label>
+                                        <input id="publicApi" class="form-input" placeholder="API pública (ngrok) — opcional (ex: https://abcd1234.ngrok.io)" style="margin-bottom:8px;" />
+                                        <textarea id="scriptCode" readonly class="form-input" style="min-height: 300px; background: #0a0a0a; color: #00ff00;"></textarea>
+                                    </div>
+
+                                    <button class="btn btn-primary" onclick="copyScript()">📋 Copiar Script</button>
+                                </div>
+                            </div>
+                </div>
+            </div>
+
+            <!-- Removed global Script tab; script is generated per-service -->
+        </div>
+    </div>
+
+    <script>
+        const API = window.location.origin;
+        let token = localStorage.getItem('token');
+        let userId = null;
+        let keys = [];
+        let services = [];
+        let selectedService = null;
+
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+        }
+
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        async function checkAuth() {
+            if (token) {
+                try {
+                    const res = await fetch(API + '/verify-token', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ token })
+                    });
+                    const data = await safeParseJSON(res);
+                    if (data && data.success) {
+                        showDashboard(data.username, data.userId);
+                        return;
+                    }
+                } catch (e) {}
+            }
+            document.getElementById('authContainer').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+
+        // Safely parse JSON responses; fall back to text and include snippet for debugging
+        async function safeParseJSON(res) {
+            try {
+                const text = await res.text();
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    // return an object with raw text for error handling
+                    return { __raw: text };
+                }
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function showDashboard(username, uid) {
+            userId = uid;
+            document.getElementById('authContainer').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('currentUser').textContent = '👤 ' + username;
+            loadServices();
+            generateScript();
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const res = await fetch(API + '/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia do servidor');
+                if (data.__raw) {
+                    alert('Resposta inválida do servidor: ' + (data.__raw.slice(0,200) || ''));
+                    return;
+                }
+                if (data.success) {
+                    token = data.token;
+                    localStorage.setItem('token', token);
+                    showDashboard(data.username, data.userId);
+                } else {
+                    alert(data.message || 'Erro no login');
+                }
+            } catch (e) {
+                alert('Erro ao fazer login: ' + (e.message || e));
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+
+            try {
+                const res = await fetch(API + '/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia do servidor');
+                if (data.__raw) {
+                    alert('Resposta inválida do servidor: ' + (data.__raw.slice(0,200) || ''));
+                    return;
+                }
+                if (data.success) {
+                    token = data.token;
+                    localStorage.setItem('token', token);
+                    showDashboard(data.username, data.userId);
+                } else {
+                    alert(data.message || 'Erro no registro');
+                }
+            } catch (e) {
+                alert('Erro ao criar conta: ' + (e.message || e));
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            token = null;
+            checkAuth();
+        }
+
+        function showTab(name) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+            if (name === 'services') {
+                const el = document.getElementById('tabServices');
+                if (el) el.classList.add('active');
+                const btn = document.querySelectorAll('.tab-btn')[0];
+                if (btn) btn.classList.add('active');
+            }
+        }
+
+        function generateKeyCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let key = '';
+            for (let i = 0; i < 4; i++) {
+                for (let j = 0; j < 4; j++) {
+                    key += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                if (i < 3) key += '-';
+            }
+            return key;
+        }
+
+        document.getElementById('keyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('keyName').value;
+            const durationType = document.getElementById('durationType').value;
+
+            let expirationDate = null;
+            if (durationType !== 'permanent') {
+                const days = parseInt(durationType);
+                const expDate = new Date();
+                expDate.setDate(expDate.getDate() + days);
+                expirationDate = expDate.toISOString();
+            }
+
+            const newKey = {
+                code: generateKeyCode(),
+                name: name,
+                expirationDate: expirationDate,
+                token: token,
+                serviceId: selectedService ? selectedService.id : null
+            };
+
+            try {
+                const res = await fetch(API + '/addkey', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newKey)
+                });
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia do servidor');
+                if (data.__raw) {
+                    alert('Resposta inválida do servidor: ' + (data.__raw.slice(0,200) || ''));
+                    return;
+                }
+                if (data.success) {
+                    alert('✅ Key criada!\n\nCódigo: ' + newKey.code);
+                    document.getElementById('keyForm').reset();
+                    loadKeys(selectedService ? selectedService.id : null);
+                } else {
+                    alert(data.message || 'Erro ao criar key!');
+                }
+            } catch (e) {
+                alert('Erro ao criar key: ' + (e.message || e));
+            }
+        });
+
+        async function loadKeys(serviceId) {
+            try {
+                const res = await fetch(API + '/keys?token=' + token + (serviceId ? '&serviceId=' + serviceId : ''));
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia ao carregar keys');
+                if (data.__raw) {
+                    console.error('loadKeys non-JSON response:', data.__raw.slice(0,200));
+                    keys = [];
+                } else {
+                    keys = Array.isArray(data) ? data : (data.keys || []);
+                }
+                renderKeys();
+            } catch (e) {
+                console.error('Erro ao carregar keys:', e);
+                keys = [];
+                renderKeys();
+            }
+        }
+
+        function renderKeys() {
+            const total = keys.length;
+            const active = keys.filter(k => !isExpired(k.expirationDate)).length;
+            const expired = total - active;
+            const locked = keys.filter(k => k.hwid).length;
+
+            const list = document.getElementById('keysList');
+
+            // Optional stats elements (only update if present)
+            const totalEl = document.getElementById('totalKeys');
+            if (totalEl) totalEl.textContent = total;
+            const activeEl = document.getElementById('activeKeys');
+            if (activeEl) activeEl.textContent = active;
+            const expiredEl = document.getElementById('expiredKeys');
+            if (expiredEl) expiredEl.textContent = expired;
+            const lockedEl = document.getElementById('lockedKeys');
+            if (lockedEl) lockedEl.textContent = locked;
+
+            if (keys.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #555; padding: 40px;">Nenhuma key criada</p>';
+                return;
+            }
+
+            list.innerHTML = keys.map(key => {
+                const expired = isExpired(key.expirationDate);
+                const locked = key.hwid !== null;
+
+                let badge = '';
+                if (expired) {
+                    badge = '<span class="badge badge-expired">Expirada</span>';
+                } else if (locked) {
+                    badge = '<span class="badge badge-locked">Vinculada</span>';
+                } else {
+                    badge = '<span class="badge badge-active">Ativa</span>';
+                }
+
+                return `
+                    <div class="key-item">
+                        <div class="key-header">
+                            <div>
+                                <div class="key-code" onclick="copyKey('${key.code}')">${key.code}</div>
+                                <div class="key-info"><strong>${key.name}</strong></div>
+                            </div>
+                            <div class="key-actions">
+                                ${locked ? `<button class="btn-icon btn-reset" onclick="resetHWID('${key.code}')">🔄 Reset</button>` : ''}
+                                <button class="btn-icon" onclick="deleteKey('${key.code}')">🗑️</button>
+                            </div>
+                        </div>
+                        <div class="key-info">${badge}</div>
+                        <div class="key-info">📅 Expira: ${formatDate(key.expirationDate)}</div>
+                        <div class="key-info">💻 HWID: ${key.hwid || 'Não vinculado'}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function isExpired(date) {
+            if (!date) return false;
+            return new Date() > new Date(date);
+        }
+
+        function formatDate(date) {
+            if (!date) return 'Permanente';
+            return new Date(date).toLocaleString('pt-BR');
+        }
+
+        function copyKey(code) {
+            navigator.clipboard.writeText(code);
+            alert('✅ Key copiada: ' + code);
+        }
+
+        async function deleteKey(code) {
+            if (!confirm('Deletar esta key?')) return;
+            try {
+                await fetch(API + '/deletekey', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code, token })
+                });
+                loadKeys(selectedService ? selectedService.id : null);
+            } catch (e) {}
+        }
+
+        async function resetHWID(code) {
+            if (!confirm('Resetar HWID?')) return;
+            try {
+                await fetch(API + '/reset-hwid', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code, token })
+                });
+                alert('✅ HWID resetado!');
+                loadKeys(selectedService ? selectedService.id : null);
+            } catch (e) {}
+        }
+
+        // Services
+        async function loadServices() {
+            try {
+                const res = await fetch(API + '/services?token=' + token);
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia ao carregar services');
+                if (data.__raw) {
+                    console.error('loadServices non-JSON response:', data.__raw.slice(0,200));
+                    services = [];
+                } else {
+                    services = Array.isArray(data) ? data : (data.services || []);
+                }
+                renderServices();
+            } catch (e) {
+                console.error('Erro ao carregar services:', e);
+                services = [];
+                renderServices();
+            }
+        }
+
+        function renderServices() {
+            const container = document.getElementById('servicesList');
+            if (!services || services.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #555; padding: 20px;">Nenhum serviço criado</p>';
+                document.getElementById('serviceControls').style.display = 'none';
+                selectedService = null;
+                document.getElementById('selectedServiceInfo').textContent = 'Selecione um serviço à esquerda';
+                return;
+            }
+
+            container.innerHTML = services.map(s => `
+                <div style="padding:8px; border:1px solid rgba(59,130,246,0.08); margin-bottom:8px; border-radius:6px; display:flex; justify-content:space-between; align-items:center;">
+                    <div style="flex:1;">
+                        <div style="font-weight:700;">${s.name}</div>
+                        <div style="font-size:12px; color:#888;">ID: ${s.id}</div>
+                    </div>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn-icon" onclick="selectService('${s.id}')">Abrir</button>
+                        <button class="btn-icon" onclick="deleteService('${s.id}')">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            // auto-select first if none
+            if (!selectedService) selectService(services[0].id);
+            // show API warning if localhost
+            const apiWarning = document.getElementById('apiWarning');
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                if (!apiWarning) {
+                    const el = document.createElement('div');
+                    el.id = 'apiWarning';
+                    el.className = 'alert-box';
+                    el.style.marginTop = '12px';
+                    el.innerHTML = '<div class="alert-title">⚠️ API não pública</div><div class="alert-text">O servidor está rodando em localhost. Se você compartilhar o script com outras pessoas, elas NÃO conseguirão conectar. Use ngrok/domínio público.</div>';
+                    document.getElementById('servicePanel').prepend(el);
+                }
+            } else {
+                if (apiWarning) apiWarning.remove();
+            }
+        }
+
+        async function selectService(id) {
+            selectedService = services.find(s => s.id === id) || null;
+            if (!selectedService) return;
+            document.getElementById('selectedServiceInfo').textContent = `Serviço: ${selectedService.name} (ID: ${selectedService.id})`;
+            document.getElementById('serviceControls').style.display = 'block';
+            loadKeys(selectedService.id);
+            generateScript();
+        }
+
+        document.getElementById('serviceForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('serviceName').value;
+            try {
+                const res = await fetch(API + '/addservice', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, token })
+                });
+                const data = await safeParseJSON(res);
+                if (!data) throw new Error('Resposta vazia do servidor');
+                if (data.__raw) {
+                    alert('Resposta inválida do servidor: ' + (data.__raw.slice(0,200) || ''));
+                    return;
+                }
+                if (data.success) {
+                    document.getElementById('serviceForm').reset();
+                    loadServices();
+                } else {
+                    alert(data.message || 'Erro ao criar serviço');
+                }
+            } catch (e) {}
+        });
+
+        async function deleteService(id) {
+            if (!confirm('Deletar este serviço e todas as suas keys?')) return;
+            try {
+                await fetch(API + '/deleteservice', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ serviceId: id, token })
+                });
+                services = services.filter(s => s.id !== id);
+                if (selectedService && selectedService.id === id) selectedService = null;
+                renderServices();
+                loadKeys(null);
+            } catch (e) {}
+        }
+
+        function generateScript() {
+                const SERVICE_ID = selectedService ? selectedService.id : "";
+                const SERVICE_NAME = selectedService ? selectedService.name : "KEY SYSTEM";
+                const API_BASE = (document.getElementById('publicApi') && document.getElementById('publicApi').value.trim()) || API;
+                const script = `local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local API_URL = "${API_BASE}"
+local OWNER_ID = "${userId}"
+local TOKEN = "${token || ''}"
+    local SERVICE_ID = "${SERVICE_ID}"
+    local SERVICE_NAME = "${SERVICE_NAME}"
+
+local function getHWID()
+    return game:GetService("RbxAnalyticsService"):GetClientId()
+end
+
+local function verifyKey(keyCode)
+    -- prevent calling localhost from other players' machines
+    if string.find(API_URL, "localhost") or string.find(API_URL, "127.0.0.1") then
+        return false, "API_URL não é público. Use ngrok ou um domínio acessível para compartilhar o script."
+    end
+
+    local success, response = pcall(function()
+        local url = API_URL .. "/verify?key=" .. HttpService:UrlEncode(keyCode) .. "&hwid=" .. HttpService:UrlEncode(getHWID()) .. "&token=" .. HttpService:UrlEncode(TOKEN) .. "&serviceId=" .. HttpService:UrlEncode(SERVICE_ID)
+        return game:HttpGet(url)
+    end)
+    
+    if not success then
+        return false, "Erro de conexão"
+    end
+    
+    -- If server returned HTML (common when endpoint is unreachable or wrong host), show friendly message
+    if type(response) == 'string' and response:sub(1,1) == '<' then
+        return false, 'Servidor retornou HTML — verifique o API_URL e se o servidor está público/atingível.'
+    end
+
+    local ok, data = pcall(function() return HttpService:JSONDecode(response) end)
+    if not ok or type(data) ~= 'table' then
+        local snippet = tostring(response)
+        if #snippet > 200 then snippet = snippet:sub(1,200) .. "..." end
+        return false, "Resposta inválida do servidor: " .. snippet
+    end
+
+    -- Friendly message for hwid mismatch
+    if data.reason == 'hwid_mismatch' then
+        return false, 'Essa key já está sendo usada'
+    end
+
+    local msg = data.message or 'Resposta inválida do servidor'
+    return data.valid == true, msg
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Input = Instance.new("TextBox")
+local Button = Instance.new("TextButton")
+local Status = Instance.new("TextLabel")
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ResetOnSpawn = false
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 30)
+Frame.BorderSizePixel = 2
+Frame.BorderColor3 = Color3.fromRGB(59, 130, 246)
+Frame.Position = UDim2.new(0.5, -200, 0.5, -150)
+Frame.Size = UDim2.new(0, 400, 0, 300)
+Frame.Active = true
+Frame.Draggable = true
+
+Title.Parent = Frame
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1, 0, 0, 60)
+Title.Font = Enum.Font.GothamBold
+Title.Text = SERVICE_NAME
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 24
+
+Input.Parent = Frame
+Input.BackgroundColor3 = Color3.fromRGB(30, 30, 40)
+Input.BorderSizePixel = 1
+Input.BorderColor3 = Color3.fromRGB(59, 130, 246)
+Input.Position = UDim2.new(0.1, 0, 0, 80)
+Input.Size = UDim2.new(0.8, 0, 0, 40)
+Input.Font = Enum.Font.Gotham
+Input.PlaceholderText = "DIGITE SUA KEY"
+Input.Text = ""
+Input.TextColor3 = Color3.fromRGB(255, 255, 255)
+Input.TextSize = 16
+
+Button.Parent = Frame
+Button.BackgroundColor3 = Color3.fromRGB(59, 130, 246)
+Button.BorderSizePixel = 0
+Button.Position = UDim2.new(0.1, 0, 0, 135)
+Button.Size = UDim2.new(0.8, 0, 0, 40)
+Button.Font = Enum.Font.GothamBold
+Button.Text = "VERIFICAR"
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.TextSize = 16
+
+Status.Parent = Frame
+Status.BackgroundTransparency = 1
+Status.Position = UDim2.new(0, 0, 0, 190)
+Status.Size = UDim2.new(1, 0, 0, 80)
+Status.Font = Enum.Font.Gotham
+Status.Text = ""
+Status.TextColor3 = Color3.fromRGB(200, 200, 200)
+Status.TextSize = 14
+Status.TextWrapped = true
+
+Button.MouseButton1Click:Connect(function()
+    local key = Input.Text:upper():gsub("%s+", "")
+    
+    if key == "" then
+        Status.Text = "Digite uma key!"
+        return
+    end
+    
+    Button.Text = "VERIFICANDO..."
+    Status.Text = "Verificando..."
+    
+    wait(1)
+    
+    local valid, msg = verifyKey(key)
+    
+    Status.Text = msg
+    
+    if valid then
+        Status.TextColor3 = Color3.fromRGB(76, 175, 80)
+        Button.Text = "VÁLIDA!"
+        wait(1.5)
+        ScreenGui:Destroy()
+        game.StarterGui:SetCore("SendNotification", {
+            Title = "Script Ativado!";
+            Text = "Key validada!";
+            Duration = 5;
+        })
+    else
+        Status.TextColor3 = Color3.fromRGB(244, 67, 54)
+        Button.Text = "VERIFICAR"
+    end
+end)`;
+
+            document.getElementById('scriptCode').value = script;
+        }
+
+        function copyScript() {
+            document.getElementById('scriptCode').select();
+            document.execCommand('copy');
+            alert('✅ Script copiado!');
+        }
+
+        // regenerate script when public API field changes
+        const publicApiEl = document.getElementById('publicApi');
+        if (publicApiEl) publicApiEl.addEventListener('input', generateScript);
+
+        checkAuth();
+        setInterval(() => loadKeys(selectedService ? selectedService.id : null), 10000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "key-system",
+  "version": "1.0.0",
+  "description": "Simple key management system (frontend + Node API)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

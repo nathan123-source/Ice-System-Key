@@ -1,0 +1,86 @@
+[
+  {
+    "code": "NCYN-H85I-I9RV-EBIR",
+    "name": "Jss",
+    "ownerId": "1767578690281",
+    "ownerUsername": "Cugozado123",
+    "hwid": "20E8E544-6329-4C9F-9538-F8493F898489",
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:05:00.085Z",
+    "firstUsed": "2026-01-05T02:07:29.964Z",
+    "lastUsed": "2026-01-05T02:10:25.041Z"
+  },
+  {
+    "code": "O4W0-FN7K-Z7HQ-PL7W",
+    "name": "a",
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": "20E8E544-6329-4C9F-9538-F8493F898489",
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:06:07.631Z",
+    "firstUsed": "2026-01-05T02:06:17.021Z",
+    "lastUsed": "2026-01-05T02:26:40.767Z"
+  },
+  {
+    "code": "RUXY-CID7-9OW0-VA2E",
+    "name": "ronaldo",
+    "serviceId": null,
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": null,
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:36:19.915Z"
+  },
+  {
+    "code": "9GKH-F48Y-2NXR-3QFX",
+    "name": "fewf",
+    "serviceId": null,
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": null,
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:36:35.939Z"
+  },
+  {
+    "code": "KWU7-WX7C-1921-ZP5N",
+    "name": "oi",
+    "serviceId": "1767580569076",
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": "20E8E544-6329-4C9F-9538-F8493F898489",
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:42:27.952Z",
+    "firstUsed": "2026-01-05T02:43:58.179Z"
+  },
+  {
+    "code": "008W-UE9S-RBMB-0Q68",
+    "name": "fff",
+    "serviceId": "1767580569076",
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": null,
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:42:34.149Z"
+  },
+  {
+    "code": "4H05-C8OU-LMPX-M70L",
+    "name": "viado",
+    "serviceId": "1767580981529",
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": "20E8E544-6329-4C9F-9538-F8493F898489",
+    "expirationDate": null,
+    "createdAt": "2026-01-05T02:46:52.964Z",
+    "firstUsed": "2026-01-05T02:46:58.546Z"
+  },
+  {
+    "code": "5YPX-MLHQ-WU1Z-BEMS",
+    "name": "ff",
+    "serviceId": "1767580981529",
+    "ownerId": "1767578682595",
+    "ownerUsername": "cago345",
+    "hwid": null,
+    "expirationDate": null,
+    "createdAt": "2026-01-08T04:11:59.655Z"
+  }
+]
